@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Directorio de Formularios | Tutoría FI-UAEMéx</title>
+<style>
+:root {
+    --verde: #006B45;
+    --verde-oscuro: #004D32;
+    --fondo: #f5f7f6;
+    --texto: #26332d;
+    --gris: #68756e;
+    --borde: #e1e8e3;
+    --blanco: #ffffff;
+    --ambar: #c28b27;
+    --ambar-osc: #6b4a0c;
+    --ambar-bg: #fff9ed;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: Arial, Helvetica, sans-serif; background: var(--fondo); color: var(--texto); line-height: 1.6; }
+[hidden] { display: none !important; }
+
+.demo-banner { background: #fff3cd; border-bottom: 3px solid #ffc107; color: #664d03; padding: 12px 20px; text-align: center; font-size: 13px; font-weight: 600; line-height: 1.4; }
+.demo-banner code { background: #fff; padding: 2px 7px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; font-size: 12px; border: 1px solid #ffe08a; }
+
+header { background: var(--verde-oscuro); color: white; padding: 24px 20px; }
+.header-content { max-width: 1050px; margin: auto; }
+.header-flex { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; }
+.institucion { font-size: 12px; letter-spacing: 1px; opacity: .85; margin-bottom: 6px; }
+header h1 { font-size: 25px; margin-bottom: 4px; }
+header p { font-size: 14px; opacity: .9; }
+
+.btn-acceso { background: rgba(255,255,255,0.10); color: white; border: 1.5px solid rgba(255,255,255,0.55); padding: 11px 20px; border-radius: 7px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; font-family: inherit; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; }
+.btn-acceso:hover { background: white; color: var(--verde-oscuro); border-color: white; }
+.btn-acceso:focus-visible { outline: 3px solid #e0a52f; outline-offset: 2px; }
+
+main { max-width: 1050px; margin: 32px auto; padding: 0 20px; }
+.introduccion { margin-bottom: 22px; }
+.introduccion h2 { font-size: 23px; margin-bottom: 8px; }
+.introduccion p { color: var(--gris); font-size: 15px; }
+.aviso { background: #edf5f0; border-left: 4px solid var(--verde); padding: 17px; margin-bottom: 26px; border-radius: 5px; font-size: 14px; }
+
+.formularios { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.formulario { background: var(--blanco); border: 1px solid var(--borde); border-radius: 9px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; min-height: 195px; transition: box-shadow .2s, transform .2s; }
+.formulario:hover { box-shadow: 0 4px 14px rgba(0,0,0,.06); transform: translateY(-2px); }
+.numero { color: var(--verde); font-size: 12px; font-weight: bold; margin-bottom: 8px; }
+.formulario h3 { font-size: 17px; margin-bottom: 7px; }
+.formulario p { color: var(--gris); font-size: 14px; margin-bottom: 17px; }
+.plataforma { color: var(--gris); font-size: 11px; margin-bottom: 12px; }
+.tag-itinerante { display: inline-block; background: var(--ambar-bg); color: var(--ambar-osc); border: 1px solid #ead49b; padding: 1px 7px; border-radius: 999px; font-size: 10px; font-weight: 700; margin-left: 6px; vertical-align: middle; }
+
+.boton { display: inline-block; text-align: center; text-decoration: none; background: var(--verde); color: white; padding: 11px 15px; border-radius: 5px; font-size: 14px; font-weight: bold; transition: .2s; border: 0; cursor: pointer; font-family: inherit; }
+.boton:hover { background: var(--verde-oscuro); }
+.boton:focus-visible { outline: 3px solid #e0a52f; outline-offset: 2px; }
+.boton:disabled { opacity: .6; cursor: wait; }
+.boton-secundario { background: #4a5a52; }
+.boton-secundario:hover { background: #364640; }
+
+.pasos { margin-top: 32px; background: white; border: 1px solid var(--borde); border-radius: 9px; padding: 22px; }
+.pasos h3 { margin-bottom: 12px; }
+.pasos ol { padding-left: 22px; color: var(--gris); font-size: 14px; }
+.pasos li { margin-bottom: 6px; }
+
+.panel-login { max-width: 440px; margin: 40px auto; background: white; border: 1px solid var(--borde); border-top: 5px solid var(--verde); border-radius: 10px; padding: 30px; box-shadow: 0 4px 16px rgba(0,0,0,.04); }
+.badge-tutor { display: inline-block; background: #edf5f0; color: var(--verde-oscuro); font-size: 11px; font-weight: bold; letter-spacing: 1px; padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
+.panel-login h2 { font-size: 22px; margin-bottom: 6px; }
+.panel-login > p { color: var(--gris); font-size: 14px; margin-bottom: 20px; }
+#formRFC { display: flex; flex-direction: column; gap: 8px; }
+#formRFC label { font-size: 13px; font-weight: bold; }
+#formRFC input { width: 100%; min-height: 46px; padding: 11px 14px; border: 1px solid #b8c4bd; border-radius: 6px; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; font-family: inherit; }
+#formRFC input:focus { outline: 3px solid #b7e3d3; border-color: var(--verde); }
+#formRFC .boton { margin-top: 6px; }
+
+.mensaje-tutor { display: none; padding: 12px 14px; border-radius: 6px; margin-top: 14px; font-size: 14px; }
+.mensaje-tutor.error { display: block; background: #fdecec; border: 1px solid #e7b6b6; color: #6b1a1a; }
+.mensaje-tutor.info  { display: block; background: #fff7e5; border: 1px solid #ead49b; color: #5a4210; }
+.mensaje-tutor.exito { display: block; background: #e7f4ee; border: 1px solid #b7e3d3; color: var(--verde-oscuro); }
+
+.demo-hint { background: #fff9ed; border: 1px dashed #c28b27; color: #5a4210; padding: 11px 14px; border-radius: 6px; font-size: 13px; margin-top: 16px; line-height: 1.5; }
+.demo-hint strong { display: block; margin-bottom: 4px; }
+.demo-hint code { background: #fff; padding: 1px 7px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; font-size: 12px; border: 1px solid #ffe08a; margin: 0 2px; }
+
+.panel-tutor { background: white; border: 1px solid var(--borde); border-radius: 10px; padding: 26px; }
+.panel-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+.panel-header h2 { font-size: 22px; margin-bottom: 4px; }
+#tutorInfo { color: var(--gris); font-size: 14px; }
+
+.filtros { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+.filtro { background: white; border: 2px solid var(--borde); border-radius: 10px; padding: 16px 16px 14px; cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 3px; position: relative; transition: all .2s; font-family: inherit; color: var(--texto); min-height: 88px; }
+.filtro:hover { border-color: var(--verde); }
+.filtro:focus-visible { outline: 3px solid #b7e3d3; outline-offset: 2px; }
+.filtro.activo { border-color: var(--verde); background: #edf5f0; box-shadow: 0 0 0 3px rgba(0,107,69,0.12); }
+.filtro-titulo { font-size: 15px; font-weight: bold; padding-right: 44px; }
+.filtro-sub { font-size: 12px; color: var(--gris); }
+.filtro-count { position: absolute; top: 14px; right: 16px; font-size: 22px; font-weight: bold; color: var(--verde-oscuro); line-height: 1; }
+.filtro[data-filtro="pendiente"].activo { border-color: var(--ambar); background: var(--ambar-bg); box-shadow: 0 0 0 3px rgba(194,139,39,0.16); }
+.filtro[data-filtro="pendiente"] .filtro-count { color: var(--ambar-osc); }
+.filtro[data-filtro="pendiente"].activo .filtro-titulo { color: var(--ambar-osc); }
+
+.filtro-info { font-size: 13px; color: var(--gris); margin-bottom: 10px; font-style: italic; }
+
+.tabla-wrapper { overflow-x: auto; border: 1px solid var(--borde); border-radius: 8px; }
+.tabla-tutorados { width: 100%; border-collapse: collapse; font-size: 14px; background: white; }
+.tabla-tutorados thead th { background: #f7faf8; text-align: left; padding: 12px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gris); border-bottom: 1px solid var(--borde); white-space: nowrap; font-weight: 700; }
+.tabla-tutorados tbody td { padding: 14px; border-bottom: 1px solid var(--borde); vertical-align: middle; }
+.tabla-tutorados tbody tr:last-child td { border-bottom: 0; }
+.tabla-tutorados tbody tr:hover { background: #fafcfb; }
+.tabla-tutorados tbody tr.completo td { background: #f6fbf8; }
+.tabla-tutorados tbody tr.completo:hover td { background: #edf7f1; }
+
+.celda-nombre { font-weight: 600; }
+.prog { display: flex; flex-direction: column; gap: 4px; min-width: 95px; }
+.prog-txt { font-size: 12px; font-weight: bold; color: var(--verde-oscuro); }
+.prog-txt.completo { color: #0a7d2e; }
+.barra { height: 6px; background: #e1e8e3; border-radius: 3px; overflow: hidden; width: 100%; }
+.barra-relleno { height: 100%; background: var(--verde); transition: width .3s; }
+.barra-relleno.completo { background: #0a9b3a; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { font-size: 10px; padding: 3px 8px; border-radius: 999px; background: #f0f0f0; color: #777; border: 1px solid #e0e0e0; white-space: nowrap; font-weight: 600; }
+.chip.hecho { background: #e7f4ee; color: var(--verde-oscuro); border-color: #b7e3d3; }
+.chip.hecho::before { content: "✓ "; }
+.chip.pendiente::before { content: "· "; }
+.chip.itinerante { border-style: dashed; }
+
+.sin-resultados { text-align: center; color: var(--gris); padding: 24px 14px; font-size: 14px; background: #fafcfb; border-radius: 8px; border: 1px dashed var(--borde); margin-top: 12px; }
+
+.informe-section { background: white; border: 1px solid var(--borde); border-top: 4px solid var(--verde); border-radius: 10px; padding: 24px; margin-top: 20px; }
+.informe-section h3 { font-size: 19px; margin-bottom: 8px; color: var(--verde-oscuro); }
+.informe-desc { color: var(--gris); font-size: 14px; margin-bottom: 16px; }
+
+.instrucciones-informe { background: #edf5f0; border-left: 4px solid var(--verde); padding: 14px 18px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; }
+.instrucciones-informe strong { display: block; margin-bottom: 8px; color: var(--verde-oscuro); }
+.instrucciones-informe ol { padding-left: 20px; color: var(--texto); }
+.instrucciones-informe li { margin-bottom: 6px; }
+
+.informe-acciones { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.informe-acciones .boton { flex: 0 0 auto; }
+
+.lista-mensajes { display: grid; gap: 12px; margin-top: 14px; }
+.mensaje-card { border: 1px solid var(--borde); border-radius: 8px; padding: 14px 16px; background: #fcfdfc; }
+.mensaje-header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; font-size: 14px; }
+.mensaje-header .meta { color: var(--gris); font-size: 12px; }
+.mensaje-texto { background: white; border: 1px solid var(--borde); border-radius: 6px; padding: 10px 12px; font-size: 13px; line-height: 1.6; color: var(--texto); margin-bottom: 10px; white-space: pre-wrap; word-wrap: break-word; }
+.boton-mini { background: var(--verde); color: white; border: 0; padding: 8px 14px; border-radius: 5px; font-size: 12px; font-weight: bold; cursor: pointer; font-family: inherit; transition: .2s; }
+.boton-mini:hover { background: var(--verde-oscuro); }
+.boton-mini.copiado { background: #0a9b3a; }
+
+.h4-informe { font-size: 14px; margin-top: 18px; margin-bottom: 8px; color: var(--verde-oscuro); }
+
+footer { text-align: center; padding: 24px 15px; color: var(--gris); font-size: 12px; margin-top: 35px; border-top: 1px solid var(--borde); }
+
+@media (max-width: 720px) {
+    header h1 { font-size: 21px; }
+    .formularios { grid-template-columns: 1fr; }
+    main { margin-top: 22px; }
+    .filtros { grid-template-columns: 1fr; }
+    .panel-tutor, .informe-section { padding: 18px; }
+    .tabla-tutorados thead { display: none; }
+    .tabla-tutorados, .tabla-tutorados tbody, .tabla-tutorados tr, .tabla-tutorados td { display: block; width: 100%; }
+    .tabla-tutorados tbody tr { border-bottom: 1px solid var(--borde); padding: 12px 14px; }
+    .tabla-tutorados tbody tr:nth-child(even) { background: #fafcfb; }
+    .tabla-tutorados tbody tr:hover { background: #fafcfb; }
+    .tabla-tutorados tbody tr.completo { background: #f6fbf8; }
+    .tabla-tutorados tbody td { padding: 5px 0; border: 0; }
+    .tabla-tutorados tbody td::before { content: attr(data-label); display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gris); margin-bottom: 3px; font-weight: 700; }
+}
+@media (max-width: 500px) {
+    .btn-acceso { width: 100%; justify-content: center; }
+    .header-flex { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<div id="demoBanner" class="demo-banner" hidden>
+    🧪 <strong>MODO DEMO ACTIVO</strong> — RFCs: <code>TUT-01</code> <code>TUT-02</code> <code>TUT-03</code> · Correo de prueba: <code>tutoria_fi@uaemex.mx</code>
+</div>
+
+<header>
+    <div class="header-content">
+        <div class="header-flex">
+            <div>
+                <div class="institucion">UNIVERSIDAD AUTÓNOMA DEL ESTADO DE MÉXICO</div>
+                <h1>Facultad de Ingeniería</h1>
+                <p>Coordinación de Tutoría Académica</p>
+            </div>
+            <button class="btn-acceso" id="btnAbrirAcceso" type="button">
+                <span aria-hidden="true">🔒</span> Acceso tutores
+            </button>
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <section id="viewPublico">
+        <div class="introduccion">
+            <h2>Directorio de Formularios de Tutoría</h2>
+            <p>Periodo escolar 2026B. Consulta y completa los formularios correspondientes a las actividades de tutoría académica.</p>
+        </div>
+        <div class="aviso">
+            <strong>Indicaciones importantes</strong><br>
+            Selecciona cada formulario para acceder a él. Proporciona correctamente la información solicitada; al final deberás enviar un mensaje a su tutor o tutora. En el formulario se mostrará el enlace de contacto con el tutor o tutora. Una vez concluido cada formulario, envía tus respuestas y notifica a su tutor o tutora que has realizado la actividad.
+        </div>
+        <div class="formularios" id="listaFormularios"></div>
+        <section class="pasos">
+            <h3>¿Qué debe hacer el estudiante?</h3>
+            <ol>
+                <li>Consultar los formularios disponibles.</li>
+                <li>Abrir cada formulario mediante el botón correspondiente.</li>
+                <li>Completar la información solicitada.</li>
+                <li>Identificar a tu tutor o tutora para enviarle una notificación.</li>
+                <li>Enviar tus respuestas.</li>
+                <li>Notificar a tu tutor o tutora que concluyó la actividad.</li>
+            </ol>
+        </section>
+    </section>
+
+    <section id="viewLogin" hidden>
+        <div class="panel-login">
+            <span class="badge-tutor">PARA TUTORES</span>
+            <h2>Acceso para tutores</h2>
+            <p>Ingrese su RFC para consultar el avance de sus personas tutoradas en los formularios de tutoría.</p>
+            <form id="formRFC" autocomplete="off" novalidate>
+                <label for="rfcTutor">RFC del tutor</label>
+                <input id="rfcTutor" name="rfcTutor" type="text" maxlength="13" spellcheck="false" autocapitalize="characters" placeholder="Ejemplo: AAAA000101XXX" required>
+                <button class="boton" type="submit" id="btnConsultarRFC">Consultar avance</button>
+                <button class="boton boton-secundario" type="button" id="btnCancelarLogin">Cancelar</button>
+            </form>
+            <div class="demo-hint" id="demoHint" hidden>
+                <strong>🧪 RFCs de prueba disponibles</strong>
+                <code>TUT-01</code> <code>TUT-02</code> <code>TUT-03</code>
+                <br>Todos usan el correo <code>tutoria_fi@uaemex.mx</code>.
+            </div>
+            <div id="msgLogin" class="mensaje-tutor" role="status" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <section id="viewPanel" hidden>
+        <div class="panel-tutor">
+            <div class="panel-header">
+                <div>
+                    <span class="badge-tutor">PANEL DEL TUTOR</span>
+                    <h2>Tus tutorados</h2>
+                    <p id="tutorInfo"></p>
+                </div>
+                <button class="boton boton-secundario" type="button" id="btnCerrarPanel">Salir</button>
+            </div>
+
+            <div class="filtros" role="group" aria-label="Filtrar tutorados por estado">
+                <button class="filtro" type="button" data-filtro="cumplido" aria-pressed="false">
+                    <span class="filtro-titulo">Han cumplido</span>
+                    <span class="filtro-sub">Todos los formularios completados</span>
+                    <span class="filtro-count" id="countCumplido">0</span>
+                </button>
+                <button class="filtro" type="button" data-filtro="pendiente" aria-pressed="false">
+                    <span class="filtro-titulo">No han contestado</span>
+                    <span class="filtro-sub">Con al menos uno pendiente</span>
+                    <span class="filtro-count" id="countPendiente">0</span>
+                </button>
+            </div>
+
+            <p class="filtro-info" id="filtroInfo"></p>
+
+            <div class="tabla-wrapper">
+                <table class="tabla-tutorados">
+                    <thead>
+                        <tr>
+                            <th>Nombre del tutorado</th>
+                            <th>Progreso</th>
+                            <th>Formularios</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaBody"></tbody>
+                </table>
+            </div>
+            <p class="sin-resultados" id="sinResultados" hidden>No hay tutorados en esta categoría.</p>
+        </div>
+
+        <section class="informe-section" id="informeSection" aria-labelledby="tituloInforme">
+            <h3 id="tituloInforme">📤 Contactar a sus tutorados por Microsoft Teams</h3>
+            <p class="informe-desc">A continuación encontrará los mensajes individuales listos para copiar y pegar en el chat de cada persona tutorada en Microsoft Teams. Todos los mensajes se encuentran disponibles en esta página; no es necesario abrir ninguna ventana adicional.</p>
+
+            <div class="instrucciones-informe">
+                <strong>Procedimiento a seguir:</strong>
+                <ol>
+                    <li>Presione el botón <strong>«Abrir chat personal de Teams»</strong>Se abrirá su chat personal de Microsoft Teams en una nueva pestaña. Puede utilizarlo como espacio de trabajo para tener a la mano las indicaciones.</li>
+                    <li>Regrese a esta página y localice en la lista de abajo el mensaje de la persona tutorada a quien desea contactar.</li>
+                    <li>Presione <strong>«Copiar mensaje»</strong> para copiarlo al portapapeles.</li>
+                    <li>En Microsoft Teams, busque a la persona tutorada por su nombre, abra su chat y pegue el mensaje con <code>Ctrl+V</code> (Windows) o <code>Cmd+V</code> (Mac). Envíelo.</li>
+                    <li>Repita el procedimiento para cada persona tutorada con formularios pendientes.</li>
+                </ol>
+            </div>
+
+            <div class="informe-acciones">
+                <a class="boton" id="btnAbrirTeams" href="https://teams.microsoft.com/" target="_blank" rel="noopener noreferrer">
+                    💬 Abrir chat personal de Teams
+                </a>
+            </div>
+
+            <div id="msgInforme" class="mensaje-tutor" role="status" aria-live="polite"></div>
+
+            <div id="contenidoInforme"></div>
+        </section>
+    </section>
+
+</main>
+
+<footer>
+    Universidad Autónoma del Estado de México<br>
+    Facultad de Ingeniería | Coordinación de Tutoría Académica<br>
+    Periodo escolar 2026B
+</footer>
+
+<script>
+/* ============================================================
+   FORMULARIOS ESTABLES (7) — No modificar
+   ============================================================ */
+const FORMULARIOS_PUBLICOS_ESTABLES = [
+    { nombre: "Formulario 01", titulo: "Canales del Aprendizaje", descripcion: "Identificación de los canales de aprendizaje.", plataforma: "Google Forms", enlace: "https://forms.gle/9ZqJyrF2NcAT9rMo8" },
+    { nombre: "Formulario 02", titulo: "Estilos de Aprendizaje", descripcion: "Identificación de preferencias y estilos de aprendizaje.", plataforma: "Google Forms", enlace: "https://forms.gle/7eECphSgV3GqNFReA" },
+    { nombre: "Formulario 03", titulo: "Inventario de Felder", descripcion: "Identificación de preferencias de aprendizaje mediante el inventario de Felder.", plataforma: "Google Forms", enlace: "https://forms.gle/vBDqdVmSyCaKY4Hp9" },
+    { nombre: "Formulario 04", titulo: "Técnicas y Hábitos de Estudio", descripcion: "Identificación de técnicas, hábitos y estrategias de estudio.", plataforma: "Google Forms", enlace: "https://forms.gle/YK3n65DWJvXnujNEA" },
+    { nombre: "Formulario 05", titulo: "DASS 21", descripcion: "Instrumento de evaluación mediante escala DASS 21.", plataforma: "Microsoft Forms", enlace: "https://forms.office.com/r/qyy19pwrCv" },
+    { nombre: "Formulario 06", titulo: "Escala AFA-R", descripcion: "Instrumento de evaluación de autoconcepto.", plataforma: "Microsoft Forms", enlace: "https://forms.office.com/r/mZSjtBU2D5" },
+    { nombre: "Formulario 07", titulo: "Inventario de Autoeficacia Académica", descripcion: "Identificación de percepciones de autoeficacia en el ámbito académico.", plataforma: "Microsoft Forms", enlace: "https://forms.office.com/r/cFV8kcH1XF" }
+];
+
+/* ============================================================
+   FORMULARIOS ITINERANTES — Agregar, quitar o modificar aquí.
+   ============================================================ */
+const FORMULARIOS_PUBLICOS_ITINERANTES = [
+    {
+        nombre: "Formulario 08",
+        titulo: "Encuesta sobre Medios Institucionales",
+        descripcion: "Percepción y uso de los medios institucionales de la UAEMéx.",
+        plataforma: "Microsoft Forms",
+        enlace: "https://forms.cloud.microsoft/r/VbeWDqsnwA"
+    },
+    {
+        nombre: "Formulario 09",
+        titulo: 'Investigación de la FACICO "Violencia Comunitaria"',
+        descripcion: "Estudio sobre la percepción de violencia comunitaria (FACICO-UAEMéx).",
+        plataforma: "Google Forms",
+        enlace: "https://docs.google.com/forms/d/e/1FAIpQLSc_AlKw_U5JB9w28zhFLD6sNZ8kNkJ-hGuqs1HyRye9Kd7CUg/viewform"
+    }
+];
+
+const formularios = [...FORMULARIOS_PUBLICOS_ESTABLES, ...FORMULARIOS_PUBLICOS_ITINERANTES];
+
+const contenedorFormularios = document.getElementById("listaFormularios");
+formularios.forEach((formulario, idx) => {
+    const esItinerante = idx >= FORMULARIOS_PUBLICOS_ESTABLES.length;
+    const tarjeta = document.createElement("article");
+    tarjeta.className = "formulario";
+    const contenido = document.createElement("div");
+    const numero = document.createElement("div");
+    numero.className = "numero";
+    numero.textContent = formulario.nombre;
+    const titulo = document.createElement("h3");
+    titulo.innerHTML = formulario.titulo + (esItinerante ? '<span class="tag-itinerante">ITINERANTE</span>' : '');
+    const descripcion = document.createElement("p");
+    descripcion.textContent = formulario.descripcion;
+    const plataforma = document.createElement("div");
+    plataforma.className = "plataforma";
+    plataforma.textContent = "Disponible en: " + formulario.plataforma;
+    contenido.append(numero, titulo, descripcion, plataforma);
+    const boton = document.createElement("a");
+    boton.className = "boton";
+    boton.href = formulario.enlace;
+    boton.target = "_blank";
+    boton.rel = "noopener noreferrer";
+    boton.textContent = "Abrir formulario ↗";
+    tarjeta.append(contenido, boton);
+    contenedorFormularios.appendChild(tarjeta);
+});
+</script>
+
+<script>
+/* ============================================================
+   CONFIGURACIÓN — CAMBIA DEMO ↔ PRODUCCIÓN AQUÍ
+   ============================================================ */
+const MODO_DEMO = true;
+const CSV_TUTORES_URL = "REEMPLAZAR_POR_URL_RAW_DEL_CSV_EN_GITHUB";
+
+/* ============================================================
+   DATOS DE PRUEBA (sin número de cuenta; solo nombre)
+   ============================================================ */
+const DATOS_PRUEBA_CSV = `RFC tutor,correo tutor,nombre tutorado,Canales del Aprendizaje,Estilos de Aprendizaje,Inventario de Felder,Técnicas y Hábitos de Estudio,DASS 21,Escala AFA-R,Inventario de Autoeficacia Académica
+TUT-01,tutoria_fi@uaemex.mx,Juan Pérez López,Sí,Sí,Sí,Sí,Sí,Sí,Sí
+TUT-01,tutoria_fi@uaemex.mx,María García Ruiz,Sí,Sí,No,Sí,No,Sí,No
+TUT-01,tutoria_fi@uaemex.mx,Luis Hernández Soto,No,No,No,No,No,No,No
+TUT-02,tutoria_fi@uaemex.mx,Ana Martínez Cruz,Sí,Sí,Sí,Sí,Sí,Sí,Sí
+TUT-02,tutoria_fi@uaemex.mx,Pedro Ramírez Ortiz,No,No,No,No,No,No,No
+TUT-03,tutoria_fi@uaemex.mx,Diego Flores Maya,Sí,No,Sí,No,Sí,No,Sí
+TUT-03,tutoria_fi@uaemex.mx,Sofía Torres Vega,No,Sí,No,Sí,No,Sí,No`;
+
+/* ---------- Columnas del CSV ---------- */
+const COLUMNAS = {
+    rfc:    { alias: ["rfc_tutor", "rfc", "rfc_del_tutor", "codigo_tutor"] },
+    email:  { alias: ["correo_tutor", "email_tutor", "correo_del_tutor", "correo", "email", "correo_electronico"] },
+    nombre: { alias: ["nombre_tutorado", "nombre_del_tutorado", "nombre", "alumno", "nombre_alumno"] }
+};
+
+const FORMULARIOS_CSV_ESTABLES = [
+    { key: "canales_del_aprendizaje",              corto: "Canales",  completo: "Canales del Aprendizaje",
+      alias: ["canales_del_aprendizaje","canales_aprendizaje","canales"] },
+    { key: "estilos_de_aprendizaje",               corto: "Estilos",  completo: "Estilos de Aprendizaje",
+      alias: ["estilos_de_aprendizaje","estilos_aprendizaje","estilos"] },
+    { key: "inventario_de_felder",                 corto: "Felder",   completo: "Inventario de Felder",
+      alias: ["inventario_de_felder","inventario_felder","felder"] },
+    { key: "tecnicas_y_habitos_de_estudio",        corto: "Técnicas", completo: "Técnicas y Hábitos de Estudio",
+      alias: ["tecnicas_y_habitos_de_estudio","tecnicas_habitos_de_estudio","tecnicas_habitos_estudio","habitos"] },
+    { key: "dass_21",                              corto: "DASS 21",  completo: "DASS 21",
+      alias: ["dass_21","dass21","dass"] },
+    { key: "escala_afa_r",                         corto: "AFA-R",    completo: "Escala AFA-R",
+      alias: ["escala_afa_r","afa_r","afa"] },
+    { key: "inventario_de_autoeficacia_academica", corto: "Autoef.",  completo: "Inventario de Autoeficacia Académica",
+      alias: ["inventario_de_autoeficacia_academica","inventario_autoeficacia_academica","autoeficacia"] }
+];
+
+const FORMULARIOS_CSV_ITINERANTES = [
+    { key: "encuesta_sobre_medios_institucionales", corto: "Medios", completo: "Encuesta sobre Medios Institucionales",
+      alias: ["encuesta_sobre_medios_institucionales","encuesta_medios_institucionales","medios_institucionales","medios"] },
+    { key: "investigacion_facico_violencia_comunitaria", corto: "FACICO", completo: 'Investigación de la FACICO "Violencia Comunitaria"',
+      alias: ["investigacion_facico_violencia_comunitaria","investigacion_de_la_facico_violencia_comunitaria","facico_violencia_comunitaria","violencia_comunitaria","facico"] }
+];
+
+const FORMULARIOS_CSV = [...FORMULARIOS_CSV_ESTABLES];
+
+/* ---------- Utilidades ---------- */
+function normalizarTexto(txt) {
+    return (txt || "").toString().trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+function normalizarHeader(h) {
+    return normalizarTexto(h).replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+}
+function esCompletado(valor) {
+    const v = normalizarTexto(valor);
+    return ["si","x","1","completado","true","yes","ok","hecho","✓","√"].includes(v);
+}
+function parseCSV(texto) {
+    texto = texto.replace(/^\uFEFF/, "");
+    const primera = texto.split(/\r?\n/)[0] || "";
+    const sep = (primera.match(/;/g) || []).length > (primera.match(/,/g) || []).length ? ";" : ",";
+    const rows = []; let row = [], field = "", inQuotes = false;
+    for (let i = 0; i < texto.length; i++) {
+        const c = texto[i];
+        if (inQuotes) {
+            if (c === '"') { if (texto[i+1] === '"') { field += '"'; i++; } else inQuotes = false; }
+            else field += c;
+        } else {
+            if (c === '"') inQuotes = true;
+            else if (c === sep) { row.push(field); field = ""; }
+            else if (c === "\n") { row.push(field); rows.push(row); row = []; field = ""; }
+            else if (c !== "\r") field += c;
+        }
+    }
+    if (field.length || row.length) { row.push(field); rows.push(row); }
+    return rows.filter(r => r.some(c => (c || "").trim() !== ""));
+}
+function encontrarIndice(headers, aliases) {
+    for (const a of aliases) { const idx = headers.indexOf(a); if (idx !== -1) return idx; }
+    return -1;
+}
+async function obtenerTextoCSV() {
+    if (MODO_DEMO) { await new Promise(r => setTimeout(r, 300)); return DATOS_PRUEBA_CSV; }
+    if (!CSV_TUTORES_URL.startsWith("https://")) throw new Error("Falta configurar la URL RAW del CSV de tutores.");
+    const resp = await fetch(CSV_TUTORES_URL, { cache: "no-store" });
+    if (!resp.ok) throw new Error("No fue posible leer el archivo de tutorados. Revise la URL y que el repositorio sea público.");
+    return await resp.text();
+}
+async function copiarAlPortapapeles(texto) {
+    try { await navigator.clipboard.writeText(texto); return true; }
+    catch {
+        const ta = document.createElement("textarea");
+        ta.value = texto; ta.style.position = "fixed"; ta.style.left = "-9999px";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); document.body.removeChild(ta); return true; }
+        catch { document.body.removeChild(ta); return false; }
+    }
+}
+
+/* ---------- Elementos ---------- */
+const viewPublico = document.getElementById("viewPublico");
+const viewLogin   = document.getElementById("viewLogin");
+const viewPanel   = document.getElementById("viewPanel");
+const btnAbrirAcceso  = document.getElementById("btnAbrirAcceso");
+const btnCancelarLogin = document.getElementById("btnCancelarLogin");
+const btnCerrarPanel   = document.getElementById("btnCerrarPanel");
+const formRFC          = document.getElementById("formRFC");
+const rfcInput         = document.getElementById("rfcTutor");
+const msgLogin         = document.getElementById("msgLogin");
+const btnConsultarRFC  = document.getElementById("btnConsultarRFC");
+const tutorInfo        = document.getElementById("tutorInfo");
+const tablaBody        = document.getElementById("tablaBody");
+const sinResultados    = document.getElementById("sinResultados");
+const filtroInfo       = document.getElementById("filtroInfo");
+const countCumplido    = document.getElementById("countCumplido");
+const countPendiente   = document.getElementById("countPendiente");
+const botonesFiltro    = document.querySelectorAll(".filtro");
+const demoBanner       = document.getElementById("demoBanner");
+const demoHint         = document.getElementById("demoHint");
+const informeSection   = document.getElementById("informeSection");
+const btnAbrirTeams    = document.getElementById("btnAbrirTeams");
+const msgInforme       = document.getElementById("msgInforme");
+const contenidoInforme = document.getElementById("contenidoInforme");
+
+if (MODO_DEMO) { demoBanner.hidden = false; demoHint.hidden = false; }
+
+/* ---------- Estado ---------- */
+let tutorados = [];
+let filtroActivo = null;
+let rfcActual = "";
+let correoTutor = "";
+
+/* ---------- Vistas ---------- */
+function mostrarVista(cual) {
+    viewPublico.hidden = cual !== "publico";
+    viewLogin.hidden   = cual !== "login";
+    viewPanel.hidden   = cual !== "panel";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function mostrarMsgLogin(texto, tipo) { msgLogin.className = "mensaje-tutor " + tipo; msgLogin.textContent = texto; }
+function ocultarMsgLogin() { msgLogin.className = "mensaje-tutor"; msgLogin.textContent = ""; }
+function mostrarMsgInforme(texto, tipo) { msgInforme.className = "mensaje-tutor " + tipo; msgInforme.textContent = texto; }
+function ocultarMsgInforme() { msgInforme.className = "mensaje-tutor"; msgInforme.textContent = ""; }
+
+btnAbrirAcceso.addEventListener("click", () => { ocultarMsgLogin(); formRFC.reset(); mostrarVista("login"); setTimeout(() => rfcInput.focus(), 80); });
+btnCancelarLogin.addEventListener("click", () => { ocultarMsgLogin(); mostrarVista("publico"); });
+btnCerrarPanel.addEventListener("click", () => {
+    tutorados = []; filtroActivo = null; rfcActual = ""; correoTutor = "";
+    actualizarEstadoFiltros(); mostrarVista("publico");
+});
+rfcInput.addEventListener("input", () => {
+    rfcInput.value = rfcInput.value.toUpperCase().replace(/\s+/g, "").slice(0, 13);
+});
+
+/* ---------- Login del tutor ---------- */
+formRFC.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
+    ocultarMsgLogin();
+    const rfc = rfcInput.value.trim().toUpperCase();
+    if (rfc.length < 3) { mostrarMsgLogin("Ingrese un RFC o código válido.", "error"); rfcInput.focus(); return; }
+
+    btnConsultarRFC.disabled = true;
+    btnConsultarRFC.textContent = "Consultando…";
+    try {
+        const texto = await obtenerTextoCSV();
+        const filas = parseCSV(texto);
+        if (filas.length < 2) throw new Error("El archivo de datos está vacío.");
+
+        const headers = filas[0].map(normalizarHeader);
+        const idx = {
+            rfc:    encontrarIndice(headers, COLUMNAS.rfc.alias),
+            email:  encontrarIndice(headers, COLUMNAS.email.alias),
+            nombre: encontrarIndice(headers, COLUMNAS.nombre.alias)
+        };
+        if (idx.rfc === -1) throw new Error("Los datos no contienen una columna de RFC del tutor.");
+
+        const idxForms = {};
+        FORMULARIOS_CSV.forEach(f => { idxForms[f.key] = encontrarIndice(headers, f.alias); });
+
+        const encontrados = [];
+        let emailEncontrado = "";
+
+        for (let i = 1; i < filas.length; i++) {
+            const cols = filas[i];
+            const rfcFila = (cols[idx.rfc] || "").trim().toUpperCase();
+            if (rfcFila !== rfc) continue;
+            if (!emailEncontrado && idx.email !== -1) emailEncontrado = (cols[idx.email] || "").trim();
+
+            const reg = {
+                nombre: idx.nombre !== -1 ? (cols[idx.nombre] || "").trim() : ""
+            };
+            let completados = 0;
+            FORMULARIOS_CSV.forEach(f => {
+                const j = idxForms[f.key];
+                const hecho = j !== -1 && esCompletado(cols[j]);
+                reg[f.key] = hecho;
+                if (hecho) completados++;
+            });
+            reg.completados = completados;
+            encontrados.push(reg);
+        }
+
+        if (encontrados.length === 0) {
+            mostrarMsgLogin("No se encontraron tutorados asociados al RFC «" + rfc + "». Verifique el RFC.", "error");
+            return;
+        }
+
+        tutorados = encontrados;
+        rfcActual = rfc;
+        correoTutor = emailEncontrado;
+        filtroActivo = null;
+
+        tutorInfo.textContent = "RFC: " + rfc + " · " + encontrados.length + (encontrados.length === 1 ? " tutorado" : " tutorados") + (MODO_DEMO ? " · (modo demo)" : "");
+
+        actualizarContadores();
+        actualizarEstadoFiltros();
+        renderTabla();
+        renderInforme();
+        mostrarVista("panel");
+    } catch (err) {
+        mostrarMsgLogin(err.message || "Ocurrió un problema al consultar la información.", "error");
+    } finally {
+        btnConsultarRFC.disabled = false;
+        btnConsultarRFC.textContent = "Consultar avance";
+    }
+});
+
+/* ---------- Contadores y filtros ---------- */
+function actualizarContadores() {
+    const total = tutorados.length;
+    const cumplidos = tutorados.filter(t => t.completados === FORMULARIOS_CSV.length).length;
+    countCumplido.textContent = cumplidos;
+    countPendiente.textContent = total - cumplidos;
+}
+function actualizarEstadoFiltros() {
+    botonesFiltro.forEach(btn => {
+        const esActivo = btn.dataset.filtro === filtroActivo;
+        btn.classList.toggle("activo", esActivo);
+        btn.setAttribute("aria-pressed", esActivo ? "true" : "false");
+    });
+    if (filtroActivo === "cumplido") filtroInfo.textContent = "Mostrando solo tutorados que han cumplido todos los formularios.";
+    else if (filtroActivo === "pendiente") filtroInfo.textContent = "Mostrando solo tutorados con al menos un formulario pendiente.";
+    else filtroInfo.textContent = "Mostrando todos los tutorados. Presione un filtro para ver solo una categoría; presiónelo de nuevo para ver todos.";
+}
+botonesFiltro.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const f = btn.dataset.filtro;
+        filtroActivo = (filtroActivo === f) ? null : f;
+        actualizarEstadoFiltros();
+        renderTabla();
+    });
+});
+
+/* ---------- Tabla (sin número de cuenta) ---------- */
+function renderTabla() {
+    tablaBody.replaceChildren();
+    sinResultados.hidden = true;
+    let lista = tutorados;
+    if (filtroActivo === "cumplido") lista = tutorados.filter(t => t.completados === FORMULARIOS_CSV.length);
+    if (filtroActivo === "pendiente") lista = tutorados.filter(t => t.completados < FORMULARIOS_CSV.length);
+    if (lista.length === 0) { sinResultados.hidden = false; return; }
+    lista = [...lista].sort((a, b) => a.completados - b.completados || (a.nombre || "").localeCompare(b.nombre || ""));
+    lista.forEach(t => {
+        const completo = t.completados === FORMULARIOS_CSV.length;
+        const tr = document.createElement("tr");
+        if (completo) tr.classList.add("completo");
+
+        const tdNombre = document.createElement("td");
+        tdNombre.setAttribute("data-label", "Nombre del tutorado");
+        tdNombre.className = "celda-nombre";
+        tdNombre.textContent = t.nombre || "Sin nombre";
+
+        const tdProg = document.createElement("td");
+        tdProg.setAttribute("data-label", "Progreso");
+        const prog = document.createElement("div");
+        prog.className = "prog";
+        const progTxt = document.createElement("span");
+        progTxt.className = "prog-txt" + (completo ? " completo" : "");
+        progTxt.textContent = t.completados + " / " + FORMULARIOS_CSV.length;
+        const barra = document.createElement("div");
+        barra.className = "barra";
+        const relleno = document.createElement("div");
+        relleno.className = "barra-relleno" + (completo ? " completo" : "");
+        relleno.style.width = (t.completados / FORMULARIOS_CSV.length * 100) + "%";
+        barra.appendChild(relleno);
+        prog.append(progTxt, barra);
+        tdProg.appendChild(prog);
+
+        const tdChips = document.createElement("td");
+        tdChips.setAttribute("data-label", "Formularios");
+        const chips = document.createElement("div");
+        chips.className = "chips";
+        FORMULARIOS_CSV.forEach(f => {
+            const chip = document.createElement("span");
+            const hecho = t[f.key] === true;
+            const esItin = FORMULARIOS_CSV_ITINERANTES.some(x => x.key === f.key);
+            chip.className = "chip " + (hecho ? "hecho" : "pendiente") + (esItin ? " itinerante" : "");
+            chip.textContent = f.corto;
+            chip.title = f.completo + (hecho ? " — completado" : " — pendiente");
+            chips.appendChild(chip);
+        });
+        tdChips.appendChild(chips);
+
+        tr.append(tdNombre, tdProg, tdChips);
+        tablaBody.appendChild(tr);
+    });
+}
+
+/* ---------- Mensajes y Teams ---------- */
+function urlBase() { return window.location.origin + window.location.pathname; }
+function tratamientoFormal(nombreCompleto) {
+    return (nombreCompleto || "").trim() || "estimado(a) estudiante";
+}
+function tratamientoFormal(nombreCompleto) {
+    return (nombreCompleto || "").trim() || "estimado(a) estudiante";
+}
+function generarMensajeTutorado(t, faltantes) {
+    const nombre = tratamientoFormal(t.nombre);
+    const itinerantes = FORMULARIOS_CSV_ITINERANTES.map(f => f.completo);
+
+    let msg = "Estimado(a) " + nombre + ":\n\n"
+        + "Te saluda tu tutor(a) académico(a) de la Facultad de Ingeniería de la UAEMéx. "
+        + "Te recuerdo amablemente que tiened pendientes los siguientes formularios de tutoría:\n\n"
+        + faltantes.map(f => "• " + f).join("\n") + "\n\n";
+
+    if (itinerantes.length > 0) {
+        msg += "Adicionalmente, te solicito completar los siguientes formularios que nos envían de Administración Central "
+            + "(no es necesario notificarlos; solo contéstalos):\n\n"
+            + itinerantes.map(f => "• " + f).join("\n") + "\n\n";
+    }
+
+    msg += "Puedes acceder a todos ellos desde el directorio de formularios: " + urlBase() + "\n\n"
+        + "Una vez concluidos los formularios, te agradeceré notificarme por este mismo medio.\n\n"
+        + "Saludos cordiales.";
+
+    return msg;
+}                                                     
+
+
+/* Resumen corto para pre-cargar en el chat personal de Teams (cabe en la URL) */
+function generarResumenParaTeams() {
+    const fecha = new Date().toLocaleDateString("es-MX", { year: "numeric", month: "long", day: "numeric" });
+    const pendientes = tutorados.filter(t => t.completados < FORMULARIOS_CSV.length);
+    return "📋 INFORME DE TUTORÍA — " + fecha + "\n"
+        + "RFC: " + rfcActual + "\n"
+        + "Tutorados con formularios pendientes: " + pendientes.length + " de " + tutorados.length + ".\n"
+        + "\n"
+        + "Los mensajes individuales para cada tutorado se encuentran disponibles en la página web del directorio de formularios, listos para copiar y pegar en cada chat de Teams.\n"
+        + "\n"
+        + "Página: " + urlBase();
+}
+
+function renderInforme() {
+    contenidoInforme.replaceChildren();
+    ocultarMsgInforme();
+    const pendientes = tutorados.filter(t => t.completados < FORMULARIOS_CSV.length);
+
+    // Actualizar el enlace del botón de Teams
+    if (correoTutor) {
+        const resumen = generarResumenParaTeams();
+        btnAbrirTeams.href = "https://teams.microsoft.com/l/chat/0/0"
+            + "?users=" + encodeURIComponent(correoTutor)
+            + "&message=" + encodeURIComponent(resumen);
+        btnAbrirTeams.hidden = false;
+    } else {
+        btnAbrirTeams.hidden = true;
+    }
+
+    if (pendientes.length === 0) {
+        informeSection.querySelector(".informe-acciones").hidden = true;
+        informeSection.querySelector(".instrucciones-informe").hidden = true;
+        const ok = document.createElement("div");
+        ok.className = "aviso";
+        ok.innerHTML = "🎉 <strong>¡Todos sus tutorados ya completaron los formularios!</strong> No hay mensajes pendientes por enviar.";
+        contenidoInforme.appendChild(ok);
+        return;
+    }
+
+    informeSection.querySelector(".informe-acciones").hidden = false;
+    informeSection.querySelector(".instrucciones-informe").hidden = false;
+
+    const tituloMensajes = document.createElement("h4");
+    tituloMensajes.className = "h4-informe";
+    tituloMensajes.textContent = "Mensajes individuales por tutorado (cópielos y envíelos por Teams):";
+    contenidoInforme.appendChild(tituloMensajes);
+
+    const lista = document.createElement("div");
+    lista.className = "lista-mensajes";
+
+    pendientes.sort((a, b) => a.completados - b.completados || (a.nombre || "").localeCompare(b.nombre || "")).forEach(t => {
+        const faltantes = FORMULARIOS_CSV.filter(f => !t[f.key]).map(f => f.completo);
+        const mensaje = generarMensajeTutorado(t, faltantes);
+
+        const card = document.createElement("div");
+        card.className = "mensaje-card";
+
+        const header = document.createElement("div");
+        header.className = "mensaje-header";
+        const nombre = document.createElement("strong");
+        nombre.textContent = t.nombre || "Sin nombre";
+        const meta = document.createElement("span");
+        meta.className = "meta";
+        meta.textContent = "Progreso: " + t.completados + "/" + FORMULARIOS_CSV.length + " formularios";
+        header.append(nombre, meta);
+
+        const textoDiv = document.createElement("div");
+        textoDiv.className = "mensaje-texto";
+        textoDiv.textContent = mensaje;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "boton-mini";
+        btn.textContent = "📋 Copiar mensaje";
+        btn.addEventListener("click", async () => {
+            const ok = await copiarAlPortapapeles(mensaje);
+            if (ok) {
+                btn.textContent = "✓ ¡Copiado!";
+                btn.classList.add("copiado");
+                mostrarMsgInforme("✓ Mensaje copiado al portapapeles. Péguelo en el chat de Teams del tutorado con Ctrl+V (Windows) o Cmd+V (Mac).", "exito");
+                setTimeout(() => { btn.textContent = "📋 Copiar mensaje"; btn.classList.remove("copiado"); }, 2500);
+            } else {
+                mostrarMsgInforme("No se pudo copiar automáticamente. Seleccione el texto y cópielo manualmente.", "error");
+            }
+        });
+
+        card.append(header, textoDiv, btn);
+        lista.appendChild(card);
+    });
+
+    contenidoInforme.appendChild(lista);
+}
+
+/* ---------- Botón Teams: es un <a>, no usa window.open() → no lo bloquea el navegador ---------- */
+btnAbrirTeams.addEventListener("click", async () => {
+    // Se conserva el comportamiento nativo del enlace (abre Teams en nueva pestaña)
+    // Solo mostramos un mensaje informativo.
+    mostrarMsgInforme("Se abrirá su chat personal de Microsoft Teams en una nueva pestaña. Si no se abre automáticamente, verifique que esté sesión iniciada con su cuenta institucional.", "info");
+});
+</script>
+
+</body>
+</html>
